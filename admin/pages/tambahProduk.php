@@ -14,7 +14,7 @@
     $path = "../../image/produk/".$gambar;
   
     if(move_uploaded_file($tmp, $path)){ 
-      $query = mysqli_query($conn, "INSERT INTO tabel_produk (idProduk, idKategori, nama, harga, stok, path, deskripsi) VALUES ('$kode', '$kategori','$nama','$harga','$stok','$gambar','$deskripsi')");
+      $query = mysqli_query($conn, "INSERT INTO tabel_produk (kdProduk, idKategori, nama, harga, stok, path, deskripsi) VALUES ('$kode', '$kategori','$nama','$harga','$stok','$gambar','$deskripsi')");
 
       if($query){
         echo '

@@ -3,6 +3,7 @@ include('../config/db.php');
 
 $id = $_POST['id'];
 $deskripsi = $_POST['deskripsi'];
+$tmp_name = "../../temp/";
 
 if(isset($_POST['ubah_gambar'])){
     $gambar = $_FILES['gambar']['name'];
@@ -10,14 +11,14 @@ if(isset($_POST['ubah_gambar'])){
     $path = "../../image/".$gambar;
 
   if(move_uploaded_file($tmp, $path)){
-
-    $query = mysqli_query($conn, "SELECT * FROM tabel_profil WHERE no = '$id'");
+    chmod($path, 0755);
+    $query = mysqli_query($conn, "SELECT * FROM tabel_profil WHERE idProfil = '$id'");
     $data = mysqli_fetch_array($query);
 
     if(is_file("../../image/".$data['path'])) 
       unlink("../../image/".$data['path']);
     
-    $querygmbr = mysqli_query($conn, "UPDATE tabel_profil SET deskripsi = '$deskripsi', path = '$gambar'  WHERE no = '$id'");
+    $querygmbr = mysqli_query($conn, "UPDATE tabel_profil SET deskripsi = '$deskripsi', path = '$gambar' WHERE idProfil = '$id'");
     if($querygmbr){ 
       echo ' <script>
       alert("Profil dan gambar berhasil diupdate !");
@@ -39,7 +40,7 @@ if(isset($_POST['ubah_gambar'])){
       ';
   }
 }else{ 
-  $queryupd = mysqli_query($conn, "UPDATE tabel_profil SET deskripsi = '$deskripsi' WHERE no = '$id' ");
+  $queryupd = mysqli_query($conn, "UPDATE tabel_profil SET deskripsi = '$deskripsi' WHERE idProfil = '$id' ");
   if($queryupd){ 
     echo ' <script>
     alert("Profil berhasil diupdate !");

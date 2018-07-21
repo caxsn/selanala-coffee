@@ -1,9 +1,9 @@
 <?php 
   require('../config/db.php');
 
-  if($_POST['no']) {
-    $id = $_POST['no'];
-    $sqltrx = mysqli_query($conn,"SELECT no, idTransaksi, c.idUser, namaUser, alamat, telp, daftarBarang, jumlah, tanggal, total, status FROM tabel_user c JOIN tabel_transaksi s USING (idUser) WHERE no = '$id' ");
+  if($_POST['idTransaksi']) {
+    $id = $_POST['idTransaksi'];
+    $sqltrx = mysqli_query($conn,"SELECT idTransaksi, kdTransaksi, c.idUser, namaUser, alamat, telp, daftarBarang, level, jumlah, tanggal, total, status FROM tabel_user c JOIN tabel_transaksi s USING (idUser) WHERE idTransaksi = '$id' ");
     $data = mysqli_fetch_array($sqltrx); }
 ?>
 
@@ -12,9 +12,9 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <th>Id Transaksi</th>
+                        <th>Kode Transaksi</th>
                         <td>
-                            <?php echo $data['idTransaksi']; ?>
+                            <?php echo $data['kdTransaksi']; ?>
                         </td>
                     </tr>
                     <tr>
@@ -42,6 +42,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>Level</th>
+                        <td>
+                            <?php echo $data['level']; ?>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Jumlah</th>
                         <td>
                             <?php echo $data['jumlah']; ?>
@@ -63,7 +69,7 @@
                         <th>Status</th>
                         <td>
                             <form id="updatetrx" method="POST" action="updateTransaksi.php">
-                                <input type="hidden" name="id" value="<?php echo $data['no']; ?>">
+                                <input type="hidden" name="id" value="<?php echo $data['idTransaksi']; ?>">
                                 <select class="form-control input-xs" name="statustrx">
                                     <option value="Belum Diproses">Belum Diproses</option>
                                     <option value="Sedang Diproses">Sedang Diproses</option>
@@ -71,7 +77,7 @@
                                 </select>
                                 <div class="modal-footer">
                                             <button type="reset" class="btn btn-default" data-dismiss="modal">Batal</button>
-                                            <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
+                                            <button type="submit" name="submit" class="btn btn-success">Simpan</button>
                                         </div>
                             </form>
                         </td>

@@ -4,7 +4,7 @@ include('../config/db.php');
 $id = $_POST['id'];
 $stat = $_POST['statustrx'];
 
-    $sql = "UPDATE tabel_transaksi SET status = '$stat' WHERE no = '$id'";
+    $sql = "UPDATE tabel_transaksi SET status = '$stat' WHERE idTransaksi = '$id'";
     $ex = $conn->query($sql);
     if ($ex) {
       echo ' <script>
