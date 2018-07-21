@@ -49,7 +49,7 @@
           echo '
             <li>
               <a href="#'.$arrayKopi['no'].'">
-                <img src="image/produk/'.$arrayKopi['path'].'" alt="'.$arrayKopi['nama'].'">
+                <img style="height = 5px; width=5px;" src="image/produk/'.$arrayKopi['path'].'" alt="'.$arrayKopi['nama'].'">
                 <span class="produkhover">'.$arrayKopi['nama'].'</span>
               </a>
               <div class="overlay" id="'.$arrayKopi['no'].'">
