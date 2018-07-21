@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2018 at 07:01 AM
+-- Generation Time: Jul 21, 2018 at 10:40 PM
 -- Server version: 5.7.17-log
 -- PHP Version: 5.6.30
 
@@ -54,13 +54,6 @@ CREATE TABLE `tabel_artikel` (
   `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tabel_artikel`
---
-
-INSERT INTO `tabel_artikel` (`idArtikel`, `judul`, `deskripsi`, `path`, `tanggal`) VALUES
-(38, 'acss', 'solo', 'photo_2018-07-06_18-53-42.jpg', '2018-07-20');
-
 -- --------------------------------------------------------
 
 --
@@ -108,8 +101,8 @@ INSERT INTO `tabel_pesan` (`idPesan`, `nama`, `email`, `pesan`) VALUES
 --
 
 CREATE TABLE `tabel_produk` (
-  `no` int(3) NOT NULL,
-  `idProduk` varchar(6) NOT NULL,
+  `idProduk` int(3) NOT NULL,
+  `kdProduk` varchar(6) NOT NULL,
   `idKategori` int(2) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `harga` int(15) NOT NULL,
@@ -118,14 +111,6 @@ CREATE TABLE `tabel_produk` (
   `deskripsi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tabel_produk`
---
-
-INSERT INTO `tabel_produk` (`no`, `idProduk`, `idKategori`, `nama`, `harga`, `stok`, `path`, `deskripsi`) VALUES
-(3, 'HARB01', 2, 'House', 30000, 4, 'houseblend.jpg', 'Houseblend Kopi Arabica'),
-(4, 'GAYO01', 1, 'Kopi Gayo', 10000, 500, 'korelasi.PNG', 'Kopi Gayo Mantap Sekali          ');
-
 -- --------------------------------------------------------
 
 --
@@ -133,7 +118,7 @@ INSERT INTO `tabel_produk` (`no`, `idProduk`, `idKategori`, `nama`, `harga`, `st
 --
 
 CREATE TABLE `tabel_profil` (
-  `no` int(11) NOT NULL,
+  `idProfil` int(11) NOT NULL,
   `deskripsi` text NOT NULL,
   `path` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -142,8 +127,8 @@ CREATE TABLE `tabel_profil` (
 -- Dumping data for table `tabel_profil`
 --
 
-INSERT INTO `tabel_profil` (`no`, `deskripsi`, `path`) VALUES
-(1, 'Loremkasasas ipsum dolor sit amet', 'logo.jpg');
+INSERT INTO `tabel_profil` (`idProfil`, `deskripsi`, `path`) VALUES
+(1, 'wkwkkw', 'logo.jpg');
 
 -- --------------------------------------------------------
 
@@ -167,7 +152,7 @@ CREATE TABLE `tabel_transaksi` (
 --
 
 INSERT INTO `tabel_transaksi` (`no`, `idTransaksi`, `idUser`, `daftarBarang`, `jumlah`, `tanggal`, `total`, `status`) VALUES
-(1, 'TRX001', 4, 'Houseblend Kopi Arabica', 1, '2018-07-16', 30000, 'Belum Diproses'),
+(1, 'TRX001', 4, 'Houseblend Kopi Arabica', 1, '2018-07-16', 30000, 'Sudah Dikirim'),
 (2, 'TRX002', 4, 'Kopi Arabica', 1, '2018-07-16', 50000, 'Sudah Dikirim'),
 (3, 'TRX003', 4, 'Houseblend Kopi Arabica', 1, '2018-07-18', 30000, 'Belum Diproses'),
 (4, '', 4, '', 1, '2018-07-20', 10000, '');
@@ -179,12 +164,19 @@ INSERT INTO `tabel_transaksi` (`no`, `idTransaksi`, `idUser`, `daftarBarang`, `j
 --
 
 CREATE TABLE `tabel_trolly` (
-  `idTrolly` int(11) NOT NULL,
-  `idUser` int(11) NOT NULL,
-  `idProduk` int(11) NOT NULL,
-  `jumlah` int(11) NOT NULL,
-  `harga` int(11) NOT NULL
+  `idTrolly` int(5) NOT NULL,
+  `idUser` int(5) NOT NULL,
+  `idProduk` int(5) NOT NULL,
+  `jumlah` int(5) NOT NULL,
+  `harga` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tabel_trolly`
+--
+
+INSERT INTO `tabel_trolly` (`idTrolly`, `idUser`, `idProduk`, `jumlah`, `harga`) VALUES
+(8, 4, 0, 1, 30000);
 
 -- --------------------------------------------------------
 
@@ -241,14 +233,14 @@ ALTER TABLE `tabel_pesan`
 -- Indexes for table `tabel_produk`
 --
 ALTER TABLE `tabel_produk`
-  ADD PRIMARY KEY (`no`),
+  ADD PRIMARY KEY (`idProduk`),
   ADD KEY `idKategori` (`idKategori`);
 
 --
 -- Indexes for table `tabel_profil`
 --
 ALTER TABLE `tabel_profil`
-  ADD PRIMARY KEY (`no`);
+  ADD PRIMARY KEY (`idProfil`);
 
 --
 -- Indexes for table `tabel_transaksi`
@@ -261,7 +253,8 @@ ALTER TABLE `tabel_transaksi`
 -- Indexes for table `tabel_trolly`
 --
 ALTER TABLE `tabel_trolly`
-  ADD PRIMARY KEY (`idTrolly`);
+  ADD PRIMARY KEY (`idTrolly`),
+  ADD KEY `idUser` (`idUser`);
 
 --
 -- Indexes for table `tabel_user`
@@ -287,12 +280,12 @@ ALTER TABLE `tabel_pesan`
 -- AUTO_INCREMENT for table `tabel_produk`
 --
 ALTER TABLE `tabel_produk`
-  MODIFY `no` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idProduk` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tabel_profil`
 --
 ALTER TABLE `tabel_profil`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idProfil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tabel_transaksi`
 --
@@ -302,7 +295,7 @@ ALTER TABLE `tabel_transaksi`
 -- AUTO_INCREMENT for table `tabel_trolly`
 --
 ALTER TABLE `tabel_trolly`
-  MODIFY `idTrolly` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idTrolly` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `tabel_user`
 --
