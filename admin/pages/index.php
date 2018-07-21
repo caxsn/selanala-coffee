@@ -85,8 +85,8 @@
                      <li>
                         <a href="#pesan" data-toggle="tab"><i class="fa fa-envelope fa-fw"></i> Pesan</a>
                      </li>
-                     <li class="disabled">
-                        <a href="#datauser" data-toggle="tab"><i class="fa fa-users fa-fw"></i> Data User</a>
+                     <li>
+                        <a href="#user" data-toggle="tab"><i class="fa fa-users fa-fw"></i> Data User</a>
                      </li>
                      <li>
                         <a href="#"><i class="fa fa-edit fa-fw"></i> Edit Halaman<span class="fa arrow"></span></a>
@@ -96,6 +96,8 @@
                            </li>
                         </ul>
                      </li>
+                  </ul>
+                  </li>
                   </ul>
                </div>
                <!-- /.sidebar-collapse -->
@@ -661,6 +663,142 @@
                   <!-- /.col-lg-12 -->
                </div>
                <!-- /pesan -->
+               <div class="tab-pane fade" id="user">
+                  <div class="row">
+                     <div class="col-lg-12">
+                        <h1 class="page-header">User</h1>
+                        <button type="button" class="btn btn-success" style="float: right;margin-bottom: 10px;" data-toggle="modal" data-target="#modaluser">Tambah User</button>
+                        <!-- Modal Tambah User -->
+                        <div class="modal fade" id="modaluser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                           <div class="modal-dialog">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Tambah User</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                    <div class="row">
+                                       <div class="col-lg-12">
+                                          <form action="tambahUser.php" method="post" role="form" enctype="multipart/form-data" id="formuser">
+                                             <div class="form-group">
+                                                <label>Nama User</label>
+                                                <input class="form-control" name="nama" placeholder="Masukkan Nama User" required>
+                                             </div>
+                                             <div class="form-group">
+                                                <label>Email</label>
+                                                <input class="form-control" name="email" placeholder="Masukkan Email" required>
+                                             </div>
+                                             <div class="form-group">
+                                                <label>Password</label>
+                                                <input class="form-control" type="password" name="password" placeholder="*******" required>
+                                             </div>
+                                             <div class="form-group">
+                                                <label>Alamat</label>
+                                                <textarea class="form-control" name="alamat" rows="5" placeholder="Masukkan alamat" style="resize:none" required></textarea>
+                                             </div>
+                                             <div class="form-group">
+                                                <label>Telp</label>
+                                                <input class="form-control" name="telp" placeholder="081234567890" required>
+                                             </div>
+                                          </form>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="modal-footer">
+                                    <button class="btn btn-default" data-dismiss="modal">Batal</button>
+                                    <button class="btn btn-primary" name="submit" form="formuser" type="submit">Simpan</button>
+                                 </div>
+                              </div>
+                              <!-- /.modal-content -->
+                           </div>
+                           <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                     </div>
+                     <!-- /.col-lg-12 -->
+                  </div>
+                  <div class="row">
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                           Tabel User
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                           <table width="100%" class="table table-striped table-bordered table-hover display" id="">
+                              <thead>
+                                 <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>Alamat</th>
+                                    <th>Telp</th>
+                                    <th>Aksi</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <?php
+                                    require('../config/db.php');
+                                    $sqluser = mysqli_query($conn,"SELECT * FROM  tabel_user");
+                                    $num = 1;
+                                    while($data = mysqli_fetch_array($sqluser)) {
+                                    echo '<tr class="odd gradeX">
+                                        <td>'.$num.'</td>
+                                        <td>'.$data[namaUser].'</td>
+                                        <td>'.$data[email].'</td>
+                                        <td>'.$data[alamat].'</td>
+                                        <td>'.$data[telp].'</td>
+                                        <td><a href="#UpdateUser" class="btn btn-primary btn-xs" id="idUser" data-toggle="modal" data-id="'.$data['idUser'].'">Edit</a> <a href="javascript:;"  data-id="'.$data['idUser'].'" data-toggle="modal" data-target="#modal-konfirmasi3" class="btn btn-danger btn-xs">Hapus</a></td>
+                                    </tr>
+                                    ';
+                                    $num++;
+                                    }
+                                    ?>
+                              </tbody>
+                           </table>
+                           <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                     </div>
+                     <!-- /.panel -->
+                     <!-- modal konfirmasi delete user-->
+                     <div id="modal-konfirmasi3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                 <h4 class="modal-title">Konfirmasi</h4>
+                              </div>
+                              <div class="modal-body">
+                                 Apakah anda yakin ingin menghapus data ini ?
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                 <a href="javascript:;" class="btn btn-danger" id="hapus-true-data">Hapus</a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- Modal Update User -->
+                     <div class="modal fade" id="UpdateUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                 <h4 class="modal-title" id="myModalLabel">Edit User</h4>
+                              </div>
+                              <div class="modal-body">
+                                 <div class="fetched-data"></div>
+                              </div>
+                           </div>
+                           <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                     </div>
+                     <!-- /.modal -->
+                  </div>
+                  <!-- /.col-lg-12 -->
+               </div>
+               <!-- /user -->
                <div class="tab-pane fade" id="tentangkami">
                   <div class="row">
                      <div class="col-lg-12">
@@ -693,21 +831,23 @@
                                                 <textarea class="form-control" rows="6" name="deskripsi" style="resize:none" required><?php echo $data['deskripsi']; ?> </textarea>
                                              </div>
                                              <div class="col-md-3">
-                                             <label>Upload gambar</label>
-                                             <div class="form-group">
-                                                <input type="checkbox" name="ubah_gambar" value="true"> Ceklist jika ingin mengubah gambar.
-                                            </div>
+                                                <label>Upload gambar</label>
+                                                <div class="form-group">
+                                                   <input type="checkbox" name="ubah_gambar" value="true"> Ceklist jika ingin mengubah gambar.
+                                                </div>
                                                 <input type="file" class="form-control" name="gambar" id="gambar" onchange="readURL(this);">
                                              </div>
                                           </div>
-                                       </form>
-                                    </div>
-                                    <div class="row">
+                                          <div class="row">
                                        <div class="col-md-12 text-center" style="margin-top:10px">
                                           <button type="submit" form="profil" name="submit" class="btn btn-primary">Simpan</button>
                                        </div>
                                     </div>
+                                       </form>
+                                    </div>
+                                    <!-- /.panel -->
                                  </div>
+                                 <!-- /.col-lg-12 -->
                               </div>
                            </div>
                         </div>
@@ -763,6 +903,16 @@
          
          });
          $(document).ready(function() {
+         
+         $('#modal-konfirmasi3').on('show.bs.modal', function(event) {
+             var div = $(event.relatedTarget)
+             var idus = div.data('id')
+             var modal = $(this)
+             modal.find('#hapus-true-data').attr("href", "hapusUser.php?idUser=" + idus);
+         })
+     
+     });
+         $(document).ready(function() {
              $('#UpdateArtikel').on('show.bs.modal', function(e) {
                  var idArt = $(e.relatedTarget).data('id');
                  $.ajax({
@@ -808,6 +958,19 @@
                      type: 'post',
                      url: 'detailPesan.php',
                      data: 'idPesan=' + idPes,
+                     success: function(data) {
+                         $('.fetched-data').html(data);
+                     }
+                 });
+             });
+         });
+         $(document).ready(function() {
+             $('#UpdateUser').on('show.bs.modal', function(e) {
+                 var idUsr = $(e.relatedTarget).data('id');
+                 $.ajax({
+                     type: 'post',
+                     url: 'detailUser.php',
+                     data: 'idUser=' + idUsr,
                      success: function(data) {
                          $('.fetched-data').html(data);
                      }
