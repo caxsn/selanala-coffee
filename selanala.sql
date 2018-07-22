@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 21, 2018 at 10:40 PM
+-- Generation Time: Jul 22, 2018 at 05:49 PM
 -- Server version: 5.7.17-log
 -- PHP Version: 5.6.30
 
@@ -128,7 +128,7 @@ CREATE TABLE `tabel_profil` (
 --
 
 INSERT INTO `tabel_profil` (`idProfil`, `deskripsi`, `path`) VALUES
-(1, 'wkwkkw', 'logo.jpg');
+(1, 'Profil Selanala Update', '416x416.jpg');
 
 -- --------------------------------------------------------
 
@@ -137,10 +137,11 @@ INSERT INTO `tabel_profil` (`idProfil`, `deskripsi`, `path`) VALUES
 --
 
 CREATE TABLE `tabel_transaksi` (
-  `no` int(3) NOT NULL,
-  `idTransaksi` char(6) NOT NULL,
+  `idTransaksi` int(3) NOT NULL,
+  `kdTransaksi` char(6) NOT NULL,
   `idUser` int(5) NOT NULL,
   `daftarBarang` text NOT NULL,
+  `level` varchar(15) NOT NULL,
   `jumlah` int(5) NOT NULL,
   `tanggal` date NOT NULL,
   `total` int(15) NOT NULL,
@@ -151,11 +152,11 @@ CREATE TABLE `tabel_transaksi` (
 -- Dumping data for table `tabel_transaksi`
 --
 
-INSERT INTO `tabel_transaksi` (`no`, `idTransaksi`, `idUser`, `daftarBarang`, `jumlah`, `tanggal`, `total`, `status`) VALUES
-(1, 'TRX001', 4, 'Houseblend Kopi Arabica', 1, '2018-07-16', 30000, 'Sudah Dikirim'),
-(2, 'TRX002', 4, 'Kopi Arabica', 1, '2018-07-16', 50000, 'Sudah Dikirim'),
-(3, 'TRX003', 4, 'Houseblend Kopi Arabica', 1, '2018-07-18', 30000, 'Belum Diproses'),
-(4, '', 4, '', 1, '2018-07-20', 10000, '');
+INSERT INTO `tabel_transaksi` (`idTransaksi`, `kdTransaksi`, `idUser`, `daftarBarang`, `level`, `jumlah`, `tanggal`, `total`, `status`) VALUES
+(1, 'TRX001', 4, 'Houseblend Kopi Arabica', 'Dark roast', 1, '2018-07-16', 30000, 'Belum Diproses'),
+(2, 'TRX002', 4, 'Kopi Arabica', 'Light roast', 1, '2018-07-16', 50000, 'Sudah Dikirim'),
+(3, 'TRX003', 4, 'Houseblend Kopi Arabica', 'Medium roast', 1, '2018-07-18', 30000, 'Sudah Dikirim'),
+(4, '', 4, '', '', 1, '2018-07-20', 10000, '');
 
 -- --------------------------------------------------------
 
@@ -198,8 +199,7 @@ CREATE TABLE `tabel_user` (
 --
 
 INSERT INTO `tabel_user` (`idUser`, `namaUser`, `email`, `password`, `alamat`, `telp`) VALUES
-(4, 'Adi', 'user@user.com', '202cb962ac59075b964b07152d234b70', 'jogja', '123'),
-(5, 'Testing', 'user1@user.com', '24c9e15e52afc47c225b757e7bee1f9d', 'magelang', '08132222');
+(4, 'Nella Kharisma', 'user@user.com', '202cb962ac59075b964b07152d234b70', 'Bantul', '089669123456');
 
 --
 -- Indexes for dumped tables
@@ -246,7 +246,7 @@ ALTER TABLE `tabel_profil`
 -- Indexes for table `tabel_transaksi`
 --
 ALTER TABLE `tabel_transaksi`
-  ADD PRIMARY KEY (`no`),
+  ADD PRIMARY KEY (`idTransaksi`),
   ADD KEY `idUser` (`idUser`);
 
 --
@@ -270,7 +270,7 @@ ALTER TABLE `tabel_user`
 -- AUTO_INCREMENT for table `tabel_artikel`
 --
 ALTER TABLE `tabel_artikel`
-  MODIFY `idArtikel` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `idArtikel` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `tabel_pesan`
 --
@@ -280,7 +280,7 @@ ALTER TABLE `tabel_pesan`
 -- AUTO_INCREMENT for table `tabel_produk`
 --
 ALTER TABLE `tabel_produk`
-  MODIFY `idProduk` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idProduk` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tabel_profil`
 --
@@ -290,7 +290,7 @@ ALTER TABLE `tabel_profil`
 -- AUTO_INCREMENT for table `tabel_transaksi`
 --
 ALTER TABLE `tabel_transaksi`
-  MODIFY `no` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idTransaksi` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tabel_trolly`
 --
@@ -300,7 +300,7 @@ ALTER TABLE `tabel_trolly`
 -- AUTO_INCREMENT for table `tabel_user`
 --
 ALTER TABLE `tabel_user`
-  MODIFY `idUser` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idUser` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- Constraints for dumped tables
 --
