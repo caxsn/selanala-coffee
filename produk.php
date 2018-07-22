@@ -40,7 +40,7 @@
                                 <?php 
         require("config/config.php");
         $limit = 4;
-        $sql = mysqli_query($conn, "SELECT count(no) FROM tabel_produk WHERE idKategori='1'");
+        $sql = mysqli_query($conn, "SELECT count(idProduk) FROM tabel_produk WHERE idKategori='1'");
         $row = mysqli_fetch_array($sql, MYSQL_NUM);
         $rec_count = $row[0];
         if(isset($_GET['page'])){
@@ -57,11 +57,11 @@
         while($arrayOrigin = mysqli_fetch_array($query_Origin)){
           echo '
             <li>
-              <a href="#'.$arrayOrigin['no'].'">
+              <a href="#'.$arrayOrigin['idProduk'].'">
                 <img src="image/produk/'.$arrayOrigin['path'].'" alt="'.$arrayOrigin['nama'].'">
                 <span></span>
               </a>
-              <div class="overlay" id="'.$arrayOrigin['no'].'">
+              <div class="overlay" id="'.$arrayOrigin['idProduk'].'">
                 <a href="#" class="close"><i class="glyphicon glyphicon-remove"></i></a>
                 <img src="image/produk/'.$arrayOrigin['path'].'">
                 <div class="keterangan">
@@ -121,7 +121,7 @@
                                 <?php 
         require("config/config.php");
         $limit = 4;
-        $sql = mysqli_query($conn, "SELECT count(no) FROM tabel_produk WHERE idkategori='2'");
+        $sql = mysqli_query($conn, "SELECT count(idProduk) FROM tabel_produk WHERE idkategori='2'");
         $row = mysqli_fetch_array($sql, MYSQL_NUM);
         $rec_count = $row[0];
         if(isset($_GET['page'])){
@@ -138,11 +138,11 @@
         while($arrayOrigin = mysqli_fetch_array($query_Origin)){
           echo '
             <li>
-              <a href="#'.$arrayOrigin['no'].'">
+              <a href="#'.$arrayOrigin['idProduk'].'">
                 <img src="image/produk/'.$arrayOrigin['path'].'" alt="'.$arrayOrigin['nama'].'">
                 <span></span>
               </a>
-              <div class="overlay" id="'.$arrayOrigin['no'].'">
+              <div class="overlay" id="'.$arrayOrigin['idProduk'].'">
                 <a href="#" class="close"><i class="glyphicon glyphicon-remove"></i></a>
                 <img src="image/produk/'.$arrayOrigin['path'].'">
                 <div class="keterangan">

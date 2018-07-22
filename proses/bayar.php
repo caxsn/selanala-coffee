@@ -3,8 +3,10 @@
   require('../config/config.php');
   $idUser = $_GET['idUser'];
   $total = $_GET['total'];
+  $level = $_GET['level'];
   $queryTrolly = mysqli_query($conn, "SELECT * FROM tabel_trolly WHERE idUser='$idUser'");
   $tanggal = date("Y-m-d H:i:s");
+  $kode = "TRX-".$idUser.date("his");
 
   $barang = "";
   while($data = mysqli_fetch_array($queryTrolly)){
@@ -17,7 +19,7 @@
     $updateJumlah = mysqli_query($conn, "UPDATE tabel_produk SET stock='$jumlahBarang' WHERE idProduk='$data[idProduk]'");
   }
 
-  $queryInsert = mysqli_query($conn, "INSERT INTO tabel_transaksi (idUser, daftarBarang, jumlah, tanggal, total) VALUES ('$idUser', '$nama', '$jumlah', '$tanggal', '$total')");
+  $queryInsert = mysqli_query($conn, "INSERT INTO tabel_transaksi (kdTransaksi, idUser, daftarBarang, level, jumlah, tanggal, total, status) VALUES ('$kode','$idUser', '$nama', '$level', '$jumlah', '$tanggal', '$total','Belum Diproses')");
 
   $query = mysqli_query($conn, "DELETE FROM tabel_trolly WHERE idUser='$idUser'");
   
