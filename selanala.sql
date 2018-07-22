@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 22, 2018 at 05:49 PM
+-- Generation Time: Jul 22, 2018 at 10:10 PM
 -- Server version: 5.7.17-log
 -- PHP Version: 5.6.30
 
@@ -54,6 +54,13 @@ CREATE TABLE `tabel_artikel` (
   `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tabel_artikel`
+--
+
+INSERT INTO `tabel_artikel` (`idArtikel`, `judul`, `deskripsi`, `path`, `tanggal`) VALUES
+(40, 'Warung Kopi Klotok Pakem, Nikmatnya Hidangan Ndeso', 'Meskipun bernama warung kopi klotok, warung makan yang mengusung konsep kampung ini tidak hanya menyediakan kopi. Justru menu yang paling digemari dan menjadikan keberadaan warung ini populer adalah sego jangan (nasi sayur). Warung Kopi Klotok menyediakan aneka sayur yang biasa dimasak oleh ibu di rumah, antara lain lodeh kluwih, lodeh terong, lodeh tempe lombok ijo, sayur asem, dan sop ala ndeso. Selain itu ada juga lauk yang tak kalah ndesonya seperti pindang goreng, telur dadar, tempe garit, dan sambel dadak. ', 'Wisata-Murah-Jogja-Kopi-Klotok-Pakem.jpg', '2018-07-22');
+
 -- --------------------------------------------------------
 
 --
@@ -92,7 +99,8 @@ CREATE TABLE `tabel_pesan` (
 --
 
 INSERT INTO `tabel_pesan` (`idPesan`, `nama`, `email`, `pesan`) VALUES
-(1, 'Maguwo Team', 'admin@gmail.com', 'Lorem ipsum dolor sit amet, id cum alienum iracundia. Graece possit scripta at vix, et nibh labores volumus per, mel quem quando eu. Est no minim expetendis, his et graeci dignissim. Ea pri magna laoreet dolorem, at nec epicuri expetenda voluptaria, in quo labore aliquid. Et ius ferri atomorum.');
+(1, 'Maguwo Team', 'admin@gmail.com', 'Lorem ipsum dolor sit amet, id cum alienum iracundia. Graece possit scripta at vix, et nibh labores volumus per, mel quem quando eu. Est no minim expetendis, his et graeci dignissim. Ea pri magna laoreet dolorem, at nec epicuri expetenda voluptaria, in quo labore aliquid. Et ius ferri atomorum.'),
+(2, 'Maguwo Team', 'user@user.com', 'Testing mas');
 
 -- --------------------------------------------------------
 
@@ -110,6 +118,13 @@ CREATE TABLE `tabel_produk` (
   `path` varchar(50) NOT NULL,
   `deskripsi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tabel_produk`
+--
+
+INSERT INTO `tabel_produk` (`idProduk`, `kdProduk`, `idKategori`, `nama`, `harga`, `stok`, `path`, `deskripsi`) VALUES
+(6, 'GYO001', 1, 'Kopi Gayo', 9000, 20, 'wow-kopi-gayo.jpg', 'Kopi gayo (bahasa Inggris: Gayo coffee) merupakan varietas kopi arabika yang menjadi salah satu komoditi unggulan yang berasal dari Dataran tinggi Gayo, Aceh Tengah, Indonesia.[1] Kopi gayo telah mendapat Fair Trade Certified™ dari Organisasi Internasional Fair Trade pada tanggal 27 Mei 2010, Kopi gayo menerima sertifikat IG (Indikasi Geografis) diserahkan oleh Menteri Hukum dan HAM Indonesia.');
 
 -- --------------------------------------------------------
 
@@ -138,7 +153,7 @@ INSERT INTO `tabel_profil` (`idProfil`, `deskripsi`, `path`) VALUES
 
 CREATE TABLE `tabel_transaksi` (
   `idTransaksi` int(3) NOT NULL,
-  `kdTransaksi` char(6) NOT NULL,
+  `kdTransaksi` char(10) NOT NULL,
   `idUser` int(5) NOT NULL,
   `daftarBarang` text NOT NULL,
   `level` varchar(15) NOT NULL,
@@ -147,16 +162,6 @@ CREATE TABLE `tabel_transaksi` (
   `total` int(15) NOT NULL,
   `status` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tabel_transaksi`
---
-
-INSERT INTO `tabel_transaksi` (`idTransaksi`, `kdTransaksi`, `idUser`, `daftarBarang`, `level`, `jumlah`, `tanggal`, `total`, `status`) VALUES
-(1, 'TRX001', 4, 'Houseblend Kopi Arabica', 'Dark roast', 1, '2018-07-16', 30000, 'Belum Diproses'),
-(2, 'TRX002', 4, 'Kopi Arabica', 'Light roast', 1, '2018-07-16', 50000, 'Sudah Dikirim'),
-(3, 'TRX003', 4, 'Houseblend Kopi Arabica', 'Medium roast', 1, '2018-07-18', 30000, 'Sudah Dikirim'),
-(4, '', 4, '', '', 1, '2018-07-20', 10000, '');
 
 -- --------------------------------------------------------
 
@@ -171,13 +176,6 @@ CREATE TABLE `tabel_trolly` (
   `jumlah` int(5) NOT NULL,
   `harga` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tabel_trolly`
---
-
-INSERT INTO `tabel_trolly` (`idTrolly`, `idUser`, `idProduk`, `jumlah`, `harga`) VALUES
-(8, 4, 0, 1, 30000);
 
 -- --------------------------------------------------------
 
@@ -199,7 +197,7 @@ CREATE TABLE `tabel_user` (
 --
 
 INSERT INTO `tabel_user` (`idUser`, `namaUser`, `email`, `password`, `alamat`, `telp`) VALUES
-(4, 'Nella Kharisma', 'user@user.com', '202cb962ac59075b964b07152d234b70', 'Bantul', '089669123456');
+(4, 'John Doez', 'user@user.com', '202cb962ac59075b964b07152d234b70', 'Bantul', '089669123456');
 
 --
 -- Indexes for dumped tables
@@ -270,17 +268,17 @@ ALTER TABLE `tabel_user`
 -- AUTO_INCREMENT for table `tabel_artikel`
 --
 ALTER TABLE `tabel_artikel`
-  MODIFY `idArtikel` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `idArtikel` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT for table `tabel_pesan`
 --
 ALTER TABLE `tabel_pesan`
-  MODIFY `idPesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idPesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tabel_produk`
 --
 ALTER TABLE `tabel_produk`
-  MODIFY `idProduk` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idProduk` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `tabel_profil`
 --
@@ -290,12 +288,12 @@ ALTER TABLE `tabel_profil`
 -- AUTO_INCREMENT for table `tabel_transaksi`
 --
 ALTER TABLE `tabel_transaksi`
-  MODIFY `idTransaksi` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idTransaksi` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `tabel_trolly`
 --
 ALTER TABLE `tabel_trolly`
-  MODIFY `idTrolly` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idTrolly` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `tabel_user`
 --
